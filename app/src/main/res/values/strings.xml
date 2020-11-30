@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">MovieAppPractice</string>
+    <string name="app_name">MovieApp</string>
+    <string name="feedback">Feedback</string>
+    <string name="check_update">Check for update</string>
+
+    <string name="action_alarm">action_alarm</string>
+    <string name="action_search">action_search</string>
 </resources>
