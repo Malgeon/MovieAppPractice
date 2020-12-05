@@ -5,4 +5,9 @@
 
     <string name="action_alarm">action_alarm</string>
     <string name="action_search">action_search</string>
+
+    <string name="action_home">홈</string>
+    <string name="action_category">카테고리</string>
+    <string name="action_rate">평가하기</string>
+    <string name="action_my_page">마이페이지</string>
 </resources>
