@@ -6,23 +6,54 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapppractice.R
+import com.example.movieapppractice.data.model.MovieHome
+import com.example.movieapppractice.databinding.ActivityHomeBinding
+import com.example.movieapppractice.ui.adapter.HomePagerAdapter
 import com.example.movieapppractice.ui.base.BaseActivity
+import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
     private val viewModel by viewModel<HomeViewModel>()
+    private lateinit var binding: ActivityHomeBinding
+    private val adapter by lazy {
+        HomePagerAdapter()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        binding = ActivityHomeBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         initView()
     }
 
-    private fun initView() {
+    override fun onResume() {
+        super.onResume()
         viewModel.loadHome()
+    }
+
+    override fun observeChange() {
+        viewModel.pagerHomeLiveData.observe(this, Observer {
+            it?.let {
+                onDataLoaded(it.result)
+            }
+        })
+    }
+
+    private fun onDataLoaded(items: ArrayList<MovieHome.MovieData>) {
+        adapter.addItem(items)
+    }
+
+    private fun initView() {
+        setSupportActionBar(binding.toolbar)
+
+        with(binding) {
+            viewPager.adapter = adapter
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
