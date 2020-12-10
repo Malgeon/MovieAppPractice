@@ -6,5 +6,6 @@
     <ImageView
         android:id="@+id/pagerImage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"/>
 </LinearLayout>

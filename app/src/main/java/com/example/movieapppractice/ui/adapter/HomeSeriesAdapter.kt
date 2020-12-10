@@ -1,48 +1,47 @@
 package com.example.movieapppractice.ui.adapter
 
-
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.movieapppractice.R
 import com.example.movieapppractice.data.model.MovieHome
-import com.example.movieapppractice.databinding.ItemHomeBinding
+import com.example.movieapppractice.databinding.ItemSeriesBinding
 import com.squareup.picasso.Picasso
 
-class HomePagerAdapter : RecyclerView.Adapter<HomePagerAdapter.ViewHolder>() {
+class HomeSeriesAdapter : RecyclerView.Adapter<HomeSeriesAdapter.ViewHolder>() {
 
-    data class PagerItem(var imageUrl: String, var category: Int)
-    private val pagerItems = mutableListOf<PagerItem>()
+    data class SeriesItem(var thumbUrl: String, var title: String)
+    private val seriesItems = mutableListOf<SeriesItem>()
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        private var binding: ItemHomeBinding = ItemHomeBinding.bind(itemView)
+        private var binding: ItemSeriesBinding = ItemSeriesBinding.bind(itemView)
 
-        fun bind(item: PagerItem) {
+        fun bind(item: SeriesItem) {
             with(binding) {
                 root.context?.let {
-                    Picasso.get().load(item.imageUrl).into(pagerImage)
+                    Picasso.get().load(item.thumbUrl).into(seriesItemImage)
                 }
             }
         }
 
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder (
-        LayoutInflater.from(parent.context).inflate(R.layout.item_home, parent, false)
+        LayoutInflater.from(parent.context).inflate(R.layout.item_series, parent, false)
     )
 
-    override fun getItemCount() = pagerItems.size
+    override fun getItemCount() = seriesItems.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(pagerItems[position])
+        holder.bind(seriesItems[position])
     }
 
     fun addItem(data: ArrayList<MovieHome.MovieData>) {
         data.forEach {
-            pagerItems.add(PagerItem(it.image,1))
+            seriesItems.add(SeriesItem(it.thumb, it.title))
         }
         notifyDataSetChanged()
     }
-
 }

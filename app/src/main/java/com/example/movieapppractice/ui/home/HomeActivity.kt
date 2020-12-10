@@ -12,6 +12,7 @@ import com.example.movieapppractice.R
 import com.example.movieapppractice.data.model.MovieHome
 import com.example.movieapppractice.databinding.ActivityHomeBinding
 import com.example.movieapppractice.ui.adapter.HomePagerAdapter
+import com.example.movieapppractice.ui.adapter.HomeSeriesAdapter
 import com.example.movieapppractice.ui.base.BaseActivity
 import kotlinx.android.synthetic.main.activity_home.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -22,6 +23,13 @@ class HomeActivity : BaseActivity() {
     private lateinit var binding: ActivityHomeBinding
     private val adapter by lazy {
         HomePagerAdapter()
+    }
+
+    private val seriesAdapter1 by lazy {
+        HomeSeriesAdapter()
+    }
+    private val seriesAdapter2 by lazy {
+        HomeSeriesAdapter()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +54,8 @@ class HomeActivity : BaseActivity() {
 
     private fun onDataLoaded(items: ArrayList<MovieHome.MovieData>) {
         adapter.addItem(items)
+        seriesAdapter1.addItem(items)
+        seriesAdapter2.addItem(items)
     }
 
     private fun initView() {
@@ -53,8 +63,21 @@ class HomeActivity : BaseActivity() {
 
         with(binding) {
             viewPager.adapter = adapter
+
+            root.context?.let {
+                recyclerView1.layoutManager = LinearLayoutManager(it, LinearLayoutManager.HORIZONTAL, false)
+                bannerTitle1.text = "정말 재밌는"
+                recyclerView1.adapter = seriesAdapter1
+
+                recyclerView2.layoutManager = LinearLayoutManager(it, LinearLayoutManager.HORIZONTAL, false)
+                bannerTitle2.text = "한번 더 볼만한 작품"
+                recyclerView2.adapter = seriesAdapter2
+            }
+
         }
     }
+
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.toolbar_item, menu)

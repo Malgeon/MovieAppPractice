@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/seriesItemImage"
+        android:layout_width="180dp"
+        android:layout_height="100dp"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="5dp"
+        android:scaleType="centerCrop" />
+
+    <TextView
+        android:id="@+id/seriesItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="5dp"
+        android:text="스토브리그"
+        android:textSize="14sp" />
+</LinearLayout>
