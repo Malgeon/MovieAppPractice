@@ -3,7 +3,8 @@ package com.example.movieapppractice.ui.home
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.movieapppractice.data.model.MovieHome
+import com.example.movieapppractice.data.model.BaseResponse
+import com.example.movieapppractice.data.model.MovieData
 import com.example.movieapppractice.data.repository.Repository
 import com.example.movieapppractice.ui.base.BaseViewModel
 import com.example.movieapppractice.util.ext.addTo
@@ -15,14 +16,14 @@ class HomeViewModel (
     private val appRepository: Repository
     ) : BaseViewModel() {
 
-    private val TAG = "MainViewModel"
-    private val _pagerHomeLiveData = MutableLiveData<MovieHome>()
-    val pagerHomeLiveData: LiveData<MovieHome>
+    private val TAG = "HomeViewModel"
+    private val _pagerHomeLiveData = MutableLiveData<BaseResponse<MovieData>>()
+    val pagerHomeLiveData: LiveData<BaseResponse<MovieData>>
         get() = _pagerHomeLiveData
 
 
-    fun loadHome() {
-        appRepository.getHomeData(1)
+    fun loadHome(type: Int) {
+        appRepository.getHomeData(type)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({

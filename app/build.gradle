@@ -6,6 +6,7 @@ apply plugin: 'kotlin-kapt'
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
+    kotlinOptions{jvmTarget = "1.8"}
 
     defaultConfig {
         applicationId "com.example.movieapppractice"
@@ -26,6 +27,11 @@ android {
 
     viewBinding {
         enabled = true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 

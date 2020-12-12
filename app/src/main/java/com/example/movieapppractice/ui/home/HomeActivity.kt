@@ -2,34 +2,50 @@ package com.example.movieapppractice.ui.home
 
 import android.content.Intent
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.movieapppractice.R
-import com.example.movieapppractice.data.model.MovieHome
+import com.example.movieapppractice.data.model.BaseResponse
+import com.example.movieapppractice.data.model.MovieData
 import com.example.movieapppractice.databinding.ActivityHomeBinding
 import com.example.movieapppractice.ui.adapter.HomePagerAdapter
 import com.example.movieapppractice.ui.adapter.HomeSeriesAdapter
 import com.example.movieapppractice.ui.base.BaseActivity
-import kotlinx.android.synthetic.main.activity_home.*
+import com.example.movieapppractice.util.ext.observe
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class HomeActivity : BaseActivity() {
 
     private val viewModel by viewModel<HomeViewModel>()
     private lateinit var binding: ActivityHomeBinding
+    private var type = 1
+
     private val adapter by lazy {
-        HomePagerAdapter()
+        HomePagerAdapter(::pagerClickListener)
+        // 위와 같이 하면 가독성이 떨어지므로 아래와 같이 한다.
     }
 
     private val seriesAdapter1 by lazy {
-        HomeSeriesAdapter()
+        HomeSeriesAdapter(clicked = {seriesClickListener(it)})
     }
     private val seriesAdapter2 by lazy {
-        HomeSeriesAdapter()
+        HomeSeriesAdapter(clicked = {seriesClickListener(it)})
+    }
+
+    private fun pagerClickListener(item: HomePagerAdapter.PagerItem) {
+        val fragment = MovieItemFragment.newInstance(item.movieId)
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment, "movie_item")
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun seriesClickListener(item: HomeSeriesAdapter.SeriesItem) {
+        val fragment = MovieItemFragment.newInstance(item.movieId)
+        supportFragmentManager.beginTransaction().add(R.id.container, fragment, "movie_item")
+            .addToBackStack(null)
+            .commit()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,28 +55,24 @@ class HomeActivity : BaseActivity() {
         initView()
     }
 
+
     override fun onResume() {
         super.onResume()
-        viewModel.loadHome()
+        viewModel.loadHome(type)
     }
 
     override fun observeChange() {
-        viewModel.pagerHomeLiveData.observe(this, Observer {
-            it?.let {
-                onDataLoaded(it.result)
-            }
-        })
+        observe(viewModel.pagerHomeLiveData, ::onDataLoaded)
     }
 
-    private fun onDataLoaded(items: ArrayList<MovieHome.MovieData>) {
-        adapter.addItem(items)
-        seriesAdapter1.addItem(items)
-        seriesAdapter2.addItem(items)
+    private fun onDataLoaded(items: BaseResponse<MovieData>) {
+        adapter.addItem(items.result)
+        seriesAdapter1.addItem(items.result)
+        seriesAdapter2.addItem(items.result)
     }
 
     private fun initView() {
         setSupportActionBar(binding.toolbar)
-
         with(binding) {
             viewPager.adapter = adapter
 
@@ -76,7 +88,6 @@ class HomeActivity : BaseActivity() {
 
         }
     }
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
