@@ -43,6 +43,7 @@ class CommentAdapter : RecyclerView.Adapter<CommentAdapter.ViewHolder>() {
     }
 
     fun addItem(data: ArrayList<CommentList>) {
+        commentItems.clear()
         data.forEach {
             commentItems.add(CommentItemData(it.id, it.writer, it.contents, it.recommend))
         }

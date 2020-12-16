@@ -36,14 +36,14 @@ class ItemImagesAdapter : RecyclerView.Adapter<ItemImagesAdapter.ViewHolder>() {
     }
 
     fun addItem(data: List<String>?) {
+        imageUrls.clear()
         data?.let {
             it.forEach { url ->
                 imageUrls.add(url)
             }
-            notifyDataSetChanged()
         } ?: run {
             imageUrls.clear()
-            notifyDataSetChanged()
         }
+        notifyDataSetChanged()
     }
 }

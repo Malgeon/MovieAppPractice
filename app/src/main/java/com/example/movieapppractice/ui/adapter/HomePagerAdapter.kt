@@ -41,6 +41,7 @@ class HomePagerAdapter(
     }
 
     fun addItem(data: ArrayList<MovieData>) {
+        pagerItems.clear()
         data.forEach {
             pagerItems.add(PagerItem(it.id, it.image,1))
         }

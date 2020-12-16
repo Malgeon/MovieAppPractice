@@ -41,6 +41,7 @@ class HomeSeriesAdapter(
     }
 
     fun addItem(data: ArrayList<MovieData>) {
+        seriesItems.clear()
         data.forEach {
             seriesItems.add(SeriesItem(it.id, it.thumb, it.title))
         }

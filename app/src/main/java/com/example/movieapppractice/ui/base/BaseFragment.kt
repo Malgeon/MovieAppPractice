@@ -13,4 +13,9 @@ abstract class BaseFragment : Fragment() {
     }
 
     abstract fun observeChange()
+
+    fun showSnackbarMessage(message: String?) {
+        getBaseActivity().showSnackbarMessage(message)
+    }
+
 }

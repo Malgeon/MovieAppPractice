@@ -1,12 +1,8 @@
 package com.example.movieapppractice.data.source.remote
 
-import com.example.movieapppractice.data.model.BaseResponse
-import com.example.movieapppractice.data.model.CommentList
-import com.example.movieapppractice.data.model.MovieData
-import com.example.movieapppractice.data.model.MovieDetail
+import com.example.movieapppractice.data.model.*
 import io.reactivex.Single
-import retrofit2.http.GET
-import retrofit2.http.Query
+import retrofit2.http.*
 
 interface Api {
 
@@ -27,5 +23,20 @@ interface Api {
         @Query("length") length:Int
     ): Single<BaseResponse<CommentList>>
 
+    @FormUrlEncoded
+    @POST("/movie/increaseLikeDisLike")
+    fun postLikeDislike(
+        @Field("id") id:Int,
+        @Field("likeyn") likeyn:String?,
+        @Field("dislikeyn") dislikeyn:String?
+    ): Single<PostResponse>
 
+    @FormUrlEncoded
+    @POST("/movie/createComment")
+    fun postComment(
+        @Field("id") id:Int,
+        @Field("writer") writer:String,
+        @Field("rating") rating:Float,
+        @Field("contents") contents:String
+    ): Single<PostResponse>
 }
