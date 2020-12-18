@@ -17,6 +17,11 @@
 
     </style>
 
+    <style name="CollapsingTextAppearance" parent="Base.TextAppearance.AppCompat.Widget.ActionBar.Title"/>
+    <style name="CollapsingTextAppearance.Inverse" >
+        <item name="android:textSize">30sp</item>
+    </style>
+
     <style name="WhiteOverflowButtonStyle">
         <item name="srcCompat">@drawable/ic_baseline_more_vert_24</item>
     </style>

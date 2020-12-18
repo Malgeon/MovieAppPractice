@@ -10,6 +10,7 @@ import com.example.movieapppractice.R
 import com.example.movieapppractice.data.model.BaseResponse
 import com.example.movieapppractice.data.model.MovieData
 import com.example.movieapppractice.databinding.ActivityHomeBinding
+import com.example.movieapppractice.databinding.ActivityMainBinding
 import com.example.movieapppractice.ui.adapter.HomePagerAdapter
 import com.example.movieapppractice.ui.adapter.HomeSeriesAdapter
 import com.example.movieapppractice.ui.base.BaseActivity

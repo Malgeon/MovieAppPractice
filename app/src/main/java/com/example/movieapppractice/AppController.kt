@@ -1,21 +1,23 @@
 package com.example.movieapppractice
 
-import android.app.Application
 import androidx.multidex.MultiDexApplication
-import com.example.movieapppractice.di.repositoryModule
-import com.example.movieapppractice.di.retrofitModule
-import com.example.movieapppractice.di.viewModelModule
+import com.example.movieapppractice.di.Modules
 import org.koin.core.context.startKoin
 
+
 class AppController : MultiDexApplication() {
+
+    private val diModules by lazy {
+        Modules()
+    }
 
     override fun onCreate() {
         super.onCreate()
         startKoin {
             applicationContext
-            modules(retrofitModule)
-            modules(repositoryModule)
-            modules(viewModelModule)
+            modules(diModules.retrofit)
+            modules(diModules.repository)
+            modules(diModules.viewModel)
         }
     }
 }
